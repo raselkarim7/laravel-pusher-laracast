@@ -54626,6 +54626,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // console.log('Response Successful ==== ');
             _this.tasks = response.data;
         });
+        window.Echo.channel('tasks').listen('TaskCreated', function (e) {
+            console.log('TaskCreated event has been listened', e);
+            _this.tasks.push(e.task.body);
+        });
     },
     mounted: function mounted() {
         // console.log('Component mounted.')

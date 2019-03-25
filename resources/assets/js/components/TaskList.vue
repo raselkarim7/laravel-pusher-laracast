@@ -24,6 +24,10 @@
                   // console.log('Response Successful ==== ');
                   this.tasks = response.data
               });
+          window.Echo.channel('tasks').listen('TaskCreated', e => {
+              console.log('TaskCreated event has been listened', e);
+              this.tasks.push(e.task.body);
+          })
         },
         mounted() {
             // console.log('Component mounted.')
