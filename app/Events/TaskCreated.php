@@ -24,8 +24,8 @@ class TaskCreated implements ShouldBroadcast
     {
         $this->task = $task;
         $this->dontBroadcastToCurrentUser(); /* For this,
-        the task will not be broadcast to the current user. */
-        
+            the task will not be broadcast to the current user. */
+
     }
 
     /**

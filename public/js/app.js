@@ -54610,39 +54610,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
+//console.log(window.location.pathname[window.location.pathname.length-1]);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             newTask: '',
-            tasks: []
+            projectName: '',
+            tasks: [],
+            wildCardParm: 1
         };
     },
     created: function created() {
         var _this = this;
 
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/tasks').then(function (response) {
-            // console.log('Response Successful ==== ');
-            _this.tasks = response.data;
+        this.wildCardParm = window.location.pathname[window.location.pathname.length - 1];
+        // console.log(this.wildCardParm);
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/getprojects/' + this.wildCardParm).then(function (response) {
+            // console.log('Response Successful ==== ', response);
+            _this.projectName = response.data[0].name;
+            _this.tasks = response.data[0].tasks;
         });
         window.Echo.channel('tasks').listen('TaskCreated', function (e) {
-            console.log('TaskCreated event has been listened', e);
+            // console.log('TaskCreated event has been listened', e);
             _this.tasks.push(e.task.body);
         });
     },
-    mounted: function mounted() {
-        // console.log('Component mounted.')
-    },
+    mounted: function mounted() {},
 
     methods: {
         addNewTask: function addNewTask() {
-            // console.log('add new task called');
             if (this.newTask.length === 0) {
                 return;
             }
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/tasks', { body: this.newTask });
-            this.tasks.push(this.newTask);
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/tasks', { body: this.newTask, project_id: this.wildCardParm });
+            // console.log('taskssssssss ', this.tasks);
+            this.tasks.push({ body: this.newTask });
             this.newTask = '';
         }
     }
@@ -54657,15 +54663,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("h2", [_vm._v("Project: " + _vm._s(_vm.projectName))]),
+    _vm._v(" "),
     _c(
       "ul",
+      { staticClass: "list-group " },
       _vm._l(_vm.tasks, function(task) {
-        return _c("li", [
-          _vm._v("\n            @" + _vm._s(task) + "\n        ")
+        return _c("li", { staticClass: "list-group-item " }, [
+          _vm._v("\n            " + _vm._s(task.body) + "\n        ")
         ])
       }),
       0
     ),
+    _vm._v(" "),
+    _c("br"),
     _vm._v(" "),
     _c("input", {
       directives: [
