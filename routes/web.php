@@ -8,6 +8,15 @@ use App\Events\TaskCreated;
 //    return view('welcome');
 //});
 
+Route::get('/', function (){
+    return view('home');
+});
+
+\Illuminate\Support\Facades\Auth::routes();
+Route::get('/home', function (){
+    return view('home');
+});
+
 Route::get('/projects/{id}', 'ProjectController@getProjectView');
 Route::get('/getjsonprojects/{id}', 'ProjectController@getJsonProject');
 

@@ -54633,7 +54633,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.projectName = response.data[0].name;
             _this.tasks = response.data[0].tasks;
         });
-        window.Echo.channel('tasks.' + this.wildCardParm).listen('TaskCreated', function (e) {
+        window.Echo.private('tasks.' + this.wildCardParm).listen('TaskCreated', function (e) {
             _this.tasks.push({ body: e.task.body });
         });
     },

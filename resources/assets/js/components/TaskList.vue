@@ -31,9 +31,10 @@
                   this.projectName = response.data[0].name;
                   this.tasks = response.data[0].tasks;
               });
-          window.Echo.channel('tasks.'+this.wildCardParm).listen('TaskCreated', e => {
-              this.tasks.push({body: e.task.body});
-          })
+          window.Echo.private('tasks.'+this.wildCardParm)
+              .listen('TaskCreated', e => {
+                    this.tasks.push({body: e.task.body});
+               })
         },
         mounted() {
 

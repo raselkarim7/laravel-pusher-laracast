@@ -14,7 +14,12 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    @if (\Illuminate\Support\Facades\Auth::user())
+                        You are logged in
+                    @else
+                            <div class="text-danger"><b>You are not logged in</b></div>
+                    @endif
+
                 </div>
             </div>
         </div>
