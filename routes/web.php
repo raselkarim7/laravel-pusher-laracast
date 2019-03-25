@@ -9,7 +9,8 @@ use App\Events\TaskCreated;
 //});
 
 Route::get('/projects/{id}', 'ProjectController@getProjectView');
-Route::get('/getprojects/{id}', 'ProjectController@getJsonProject');
+Route::get('/getjsonprojects/{id}', 'ProjectController@getJsonProject');
+
 Route::get('/tasks', function (){
     return Task::latest()->pluck('body');
 });

@@ -23,6 +23,7 @@ class TaskCreated implements ShouldBroadcast
     public function __construct($task)
     {
         $this->task = $task;
+        // dd('o amar moner manusher o sone', $task);
         $this->dontBroadcastToCurrentUser(); /* For this,
             the task will not be broadcast to the current user. */
 
@@ -35,7 +36,7 @@ class TaskCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('tasks');
+        return new Channel('tasks.'.$this->task->project_id);
         //return new PrivateChannel('channel-name');
     }
 }

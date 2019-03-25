@@ -54628,15 +54628,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         this.wildCardParm = window.location.pathname[window.location.pathname.length - 1];
-        // console.log(this.wildCardParm);
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/getprojects/' + this.wildCardParm).then(function (response) {
-            // console.log('Response Successful ==== ', response);
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/getjsonprojects/' + this.wildCardParm).then(function (response) {
+
             _this.projectName = response.data[0].name;
             _this.tasks = response.data[0].tasks;
         });
-        window.Echo.channel('tasks').listen('TaskCreated', function (e) {
-            // console.log('TaskCreated event has been listened', e);
-            _this.tasks.push(e.task.body);
+        window.Echo.channel('tasks.' + this.wildCardParm).listen('TaskCreated', function (e) {
+            _this.tasks.push({ body: e.task.body });
         });
     },
     mounted: function mounted() {},
@@ -54647,7 +54645,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/tasks', { body: this.newTask, project_id: this.wildCardParm });
-            // console.log('taskssssssss ', this.tasks);
             this.tasks.push({ body: this.newTask });
             this.newTask = '';
         }
