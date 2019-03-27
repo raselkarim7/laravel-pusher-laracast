@@ -12,8 +12,8 @@
 */
 
 Broadcast::channel('tasks.{project_id}', function ($user, $project_id) {
-    // return true;
-    // return (int) $user->id === (int) $id;
+
+/*
     $canAccess = [];
 
     if($user->email === 'a@email.com') {
@@ -24,4 +24,9 @@ Broadcast::channel('tasks.{project_id}', function ($user, $project_id) {
     }
 
     return in_array($project_id, $canAccess);
+*/
+
+/* Another way of giving access is, making a pivot table */
+$project = \App\Project::find($project_id);
+return $project->participants->contains($user);
 });
