@@ -20,10 +20,10 @@
                 type="text/css"
         >
 
-        <!-- Styles -->
-        <style>
-
-        </style>
+        <script>
+            window.App = '<?php echo json_encode(['user' => auth()->user()] ); ?>';
+        </script>
+      
     </head>
     <body>
         <div id="app" class="flex-center position-ref full-height">
@@ -44,7 +44,9 @@
 
 
             <task-list> </task-list>
+
         </div>
-    <script src="../js/app.js"></script>
+    <script src="../js/app.js"> </script>
+
     </body>
 </html>
